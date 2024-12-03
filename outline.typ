@@ -2,6 +2,6 @@
     text(weight: "bold", it)
 }
 
-#outline()
+#outline(indent: 1.5em)
 
 #pagebreak(weak: true)
