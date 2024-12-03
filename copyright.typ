@@ -6,4 +6,4 @@ All Right Reserved
 
 #v(2em)
 
-\@ Copyright by Hongtao Zhang 2024
+©Copyright by Hongtao Zhang 2024

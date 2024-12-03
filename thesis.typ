@@ -11,7 +11,7 @@
 
 #set page(numbering: "i")
 
-#include "acknowledge.typ"
+#include "acknowledgements.typ"
 
 #include "abstract.typ"
 
@@ -21,6 +21,6 @@
 
 #set page(numbering: "1")
 
-#set heading(numbering: "1.")
+#set heading(numbering: "1.1")
 
 #include "introduction.typ"

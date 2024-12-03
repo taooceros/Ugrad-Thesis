@@ -1,3 +1,0 @@
-= Acknowledge
-
-#pagebreak(weak: true)

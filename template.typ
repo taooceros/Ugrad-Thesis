@@ -1,7 +1,8 @@
 #let thesis-body(content) = {
-    set text(font: "Times New Roman", size: 12pt)
+    set text(size: 12pt)
 
-    show heading.where(level: 1): set text(font: "Source Sans 3", size: 25pt, weight: "semibold")
+    show heading.where(level: 1): set text(font: "Source Sans 3", size: 25pt, weight: "medium")
+    show heading.where(level: 2): set text(size: 18pt)
 
     set page(margin: (top: 2in, bottom: 2in, left: 1.5in, right: 1.5in), header: [
         #h(1fr) #counter(page).display("i")
@@ -16,7 +17,15 @@
         v(1em)
     }
 
-    set par(leading: 2em)
+    show heading.where(level: 2): it => {
+        v(0.5em)
+        
+        [#numbering(it.numbering, ..counter(heading).get()) #it.body]
+    }
+
+    set par(leading: 1em, spacing: 1.5em, justify: true)
 
     content
+
+    bibliography("lit.yaml", style: "association-for-computing-machinery")
 }
