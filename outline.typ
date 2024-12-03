@@ -2,6 +2,12 @@
     text(weight: "bold", it)
 }
 
-#outline(indent: 1.5em)
+#show outline.entry: it => {
+    let n = it.level - 1
+    let spacing = 1.5em * n
+    h(spacing) + box(width: 100% - spacing, it)
+}
+
+#outline()
 
 #pagebreak(weak: true)

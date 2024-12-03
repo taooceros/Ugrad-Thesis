@@ -23,7 +23,10 @@
         [#numbering(it.numbering, ..counter(heading).get()) #it.body]
     }
 
+    set par(leading: 1em, justify: true)
+    
     show outline: set par(leading: 1.5em)
+
 
     content
 
