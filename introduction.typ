@@ -37,7 +37,7 @@ evidence suggests that this technique can outperform traditional locking
 mechanisms, even approaching the ideal of sequential execution efficiency
 regardless of number of threads. 
 
-=== Usage fairness
+== Usage fairness
 
 // Despite their advanced design, delegation-styled locks have been criticized
 // for their complexity and difficulty in integration with complex
