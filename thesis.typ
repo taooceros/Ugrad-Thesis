@@ -24,3 +24,11 @@
 #set heading(numbering: "1.1 ")
 
 #include "introduction.typ"
+
+#include "background.typ"
+
+#include "usage-fair-dlocks.typ"
+
+#include "experiments.typ"
+
+#include "future-work.typ"

@@ -1,0 +1,120 @@
+@inproceedings{ccsynch_ref,
+  title={Revisiting the combining synchronization technique},
+  author={Fatourou, Panagiota and Kallimanis, Nikolaos D},
+  booktitle={Proceedings of the 17th ACM SIGPLAN symposium on Principles and Practice of Parallel Programming},
+  pages={257--266},
+  year={2012}
+}
+
+@inproceedings{scheduler_coop_locks_ref,
+  title={Avoiding scheduler subversion using scheduler-cooperative locks},
+  author={Patel, Yuvraj and Yang, Leon and Arulraj, Leo and Arpaci-Dusseau, Andrea C and Arpaci-Dusseau, Remzi H and Swift, Michael M},
+  booktitle={Proceedings of the Fifteenth European Conference on Computer Systems},
+  pages={1--17},
+  year={2020}
+}
+
+@inproceedings{flatcombining_ref,
+  title={Flat combining and the synchronization-parallelism tradeoff},
+  author={Hendler, Danny and Incze, Itai and Shavit, Nir and Tzafrir, Moran},
+  booktitle={Proceedings of the twenty-second annual ACM symposium on Parallelism in algorithms and architectures},
+  pages={355--364},
+  year={2010}
+}
+
+@inproceedings{rcl_ref,
+  title={Remote core locking: Migrating $\{$Critical-Section$\}$ execution to improve the performance of multithreaded applications},
+  author={Lozi, Jean-Pierre and David, Florian and Thomas, Ga{\"e}l and Lawall, Julia and Muller, Gilles},
+  booktitle={2012 USENIX Annual Technical Conference (USENIX ATC 12)},
+  pages={65--76},
+  year={2012}
+}
+
+@inproceedings{ffwd_ref,
+  title={Ffwd: Delegation is (much) faster than you think},
+  author={Roghanchi, Sepideh and Eriksson, Jakob and Basu, Nilanjana},
+  booktitle={Proceedings of the 26th Symposium on Operating Systems Principles},
+  pages={342--358},
+  year={2017}
+}
+
+@book{ostep_ref,
+  title={Operating systems: Three easy pieces},
+  author={Arpaci-Dusseau, Remzi H and Arpaci-Dusseau, Andrea C},
+  year={2018},
+  publisher={Arpaci-Dusseau Books, LLC}
+}
+
+@book{aomp_ref,
+  title={The art of multiprocessor programming},
+  author={Herlihy, Maurice and Shavit, Nir and Luchangco, Victor and Spear, Michael},
+  year={2020},
+  publisher={Newnes}
+}
+
+@inproceedings{tclocks_ref,
+  title={Ship your Critical Section, Not Your Data: Enabling Transparent Delegation with $\{$TCLOCKS$\}$},
+  author={Gupta, Vishal and Dwivedi, Kumar Kartikeya and Kothari, Yugesh and Pan, Yueyang and Zhou, Diyu and Kashyap, Sanidhya},
+  booktitle={17th USENIX Symposium on Operating Systems Design and Implementation (OSDI 23)},
+  pages={1--16},
+  year={2023}
+}
+
+@inproceedings{ms_queue_ref,
+  title={Simple, fast, and practical non-blocking and blocking concurrent queue algorithms},
+  author={Michael, Maged M and Scott, Michael L},
+  booktitle={Proceedings of the fifteenth annual ACM symposium on Principles of distributed computing},
+  pages={267--275},
+  year={1996}
+}
+
+@inproceedings{spraylist_ref,
+  title={The spraylist: A scalable relaxed priority queue},
+  author={Alistarh, Dan and Kopinsky, Justin and Li, Jerry and Shavit, Nir},
+  booktitle={Proceedings of the 20th ACM SIGPLAN Symposium on Principles and Practice of Parallel Programming},
+  pages={11--20},
+  year={2015}
+}
+
+@book{shared_memory_sync_ref,
+  title={Shared-memory synchronization},
+  author={Scott, Michael L},
+  year={2013},
+  publisher={Morgan \& Claypool Publishers}
+}
+
+@inproceedings{skiplist_ref,
+  title={Skiplist-based concurrent priority queues},
+  author={Shavit, Nir and Lotan, Itay},
+  booktitle={Proceedings 14th International Parallel and Distributed Processing Symposium. IPDPS 2000},
+  pages={263--268},
+  year={2000},
+  organization={IEEE}
+}
+
+@inproceedings{cfl_ref,
+author = {Park, Jonggyu and Eom, Young Ik},
+title = {Locks as a Resource: Fairly Scheduling Lock Occupation with CFL},
+year = {2024},
+isbn = {9798400704352},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3627535.3638477},
+doi = {10.1145/3627535.3638477},
+abstract = {In multi-container environments, applications oftentimes experience unexpected performance fluctuations due to undesirable interference among applications. Synchronization such as locks has been targeted as one of the reasons but still remains an uncontrolled resource while a large set of locks are still shared across applications. In this paper, we demonstrate that this lack of lock scheduling incurs significant real-world problems including performance unfairness and interference among applications. To address this problem, we propose a new synchronization design with an embedded scheduling capability, called CFL (Completely Fair Locking). CFL fairly distributes a fair amount of lock occupation time to applications considering their priorities and cgroup information. For scalability, CFL also considers the NUMA topology in the case of NUMA machines. Experimental results demonstrate that CFL significantly improves performance fairness while achieving comparable or sometimes even superior performance to state-of-the-art locks.},
+booktitle = {Proceedings of the 29th ACM SIGPLAN Annual Symposium on Principles and Practice of Parallel Programming},
+pages = {17–29},
+numpages = {13},
+keywords = {synchronization primitives, lock, scalability, resource sharing},
+location = {Edinburgh, United Kingdom},
+series = {PPoPP '24}
+}
+
+@misc{ringbuffer_ref, 
+title={Optimizing a ring buffer for throughput}, 
+url={https://rigtorp.se/ringbuffer/}, 
+journal={Optimizing a Ring Buffer for Throughput | Erik Rigtorp}, 
+author={Rigtorp, Erik}, 
+year={2021}, 
+month={Dec}
+} 

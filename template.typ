@@ -5,7 +5,12 @@
     show heading.where(level: 2): set text(size: 18pt)
 
     set page(margin: (top: 2in, bottom: 2in, left: 1.5in, right: 1.5in), header: [
-        #h(1fr) #counter(page).display("i")
+        #h(1fr) #context {
+            let page_numbering = here().page-numbering()
+            if page_numbering != none {
+                counter(page).display(page_numbering)
+            }
+        }
     ])
 
     pagebreak(weak: true)
@@ -30,5 +35,5 @@
 
     content
 
-    bibliography("lit.yaml", style: "association-for-computing-machinery")
+    include "bibliography.typ"
 }

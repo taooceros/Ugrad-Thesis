@@ -12,13 +12,13 @@ limited by the code that must remain sequential.
 A principal challenge in parallel computing is thread coordination via
 shared resources. Lock-based synchronization mechanisms are widely employed
 to ensure mutual exclusion and are critical for threads to communicate
-accurately and reliably @ostep_ref @amp_ref. These synchronization points,
+accurately and reliably @ostep_ref @aomp_ref. These synchronization points,
 however, are often a source of contention and can become performance
 bottlenecks in a concurrent execution environment @ccsynch_ref.
 Theoretically, the synchronization duration should be invariant with
 respect to the number of threads; yet, contention for locks often leads to
 a serious degradation in performance that is disproportionate to the
-increase in thread count @ccsynch_ref @flatcombining_ref @amp_ref.
+increase in thread count @ccsynch_ref @flatcombining_ref @aomp_ref.
 
 == Delegation-styled locks
 
@@ -29,7 +29,7 @@ lock to execute their critical section, threads package their critical
 sections into requests and entrust them to a combiner, which processes
 these requests and returns the results. There are two predominant forms of
 delegation-styled locks: _combining_ synchronization @ccsynch_ref
-@transparent_dlock_ref @flatcombining_ref and _client-server_ synchronization
+@tclocks_ref @flatcombining_ref and _client-server_ synchronization
 @rcl_ref @ffwd_ref. Combining locks allow for dynamic selection of the
 combiner role amongst the participants, whereas client-server locks
 dictates a consistent server thread to manage all requests. Empirical
@@ -48,7 +48,7 @@ regardless of number of threads.
 
 Newly conducted studies have introduced concerns regarding scheduler
 subversion when locks are implemented without a sophisticated fairness
-mechanism or are limited to fairness at the point of acquisition @scl_ref.
+mechanism or are limited to fairness at the point of acquisition @scheduler_coop_locks_ref.
 This is particularly problematic when threads exhibit imbalanced workloads
 within their critical sections, as the presence of a lock can disrupt the
 CPU's scheduling policy, which intends to allocate equitable processing
@@ -72,4 +72,7 @@ TODO
 
 TODO
 
+
 #pagebreak(weak: true)
+
+#include "bibliography.typ"
