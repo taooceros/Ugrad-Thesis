@@ -5,7 +5,7 @@
 
 #context {
   if bib_state.get() == bib_state.final() [
-    #bibliography("lit.bib", style: "association-for-computing-machinery")
+    #bibliography("lit.bib", style: "association-for-computing-machinery", title: "References")
   ]
 }
 
