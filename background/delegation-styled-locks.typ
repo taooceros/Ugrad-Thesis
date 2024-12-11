@@ -28,4 +28,4 @@
 
 #not-sure
 
-#include "../bibliography.typ"
+#include "../reference.typ"

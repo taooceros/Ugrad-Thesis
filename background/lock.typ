@@ -2,4 +2,4 @@
 
 This section reviews the common lock primitives. 
 
-#include "../bibliography.typ"
+#include "../reference.typ"

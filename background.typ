@@ -3,17 +3,17 @@
 = Background
 
 #let modules = (
-  "concurrency",
-  "lock",
-  "common-locks",
-  "usage-fairness",
-  "delegation-styled-locks",
-  "lock-free-data-structures",
+  include "background/concurrency.typ",
+  include "background/lock.typ",
+  include "background/common-locks.typ",
+  include "background/usage-fairness.typ",
+  include "background/delegation-styled-locks.typ",
+  include "background/lock-free-data-structures.typ",
 )
 
 
 #{
   for module in modules {
-    include "background/" + module + ".typ"
+    module
   }
 }

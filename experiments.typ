@@ -4,6 +4,6 @@
 
 == Latency of single acquire
 
-#include "bibliography.typ"
+#include "reference.typ"
 
 #pagebreak(weak: true)

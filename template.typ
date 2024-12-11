@@ -35,5 +35,5 @@
 
     content
 
-    include "bibliography.typ"
+    include "reference.typ"
 }

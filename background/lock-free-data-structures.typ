@@ -18,4 +18,4 @@
 
 #pagebreak(weak: true)
 
-#include "../bibliography.typ"
+#include "../reference.typ"

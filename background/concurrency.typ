@@ -16,4 +16,4 @@ Mutual exclusion is a core concept in concurrent programming that ensures only o
 
 Various mechanisms exist to implement mutual exclusion, with locks being one of the most common approaches. Locks provide a way for threads to coordinate access to shared resources by acquiring exclusive access before entering a critical section and releasing it afterward. The following sections explore different lock implementations, their characteristics, and the trade-offs they present in terms of performance, fairness, and complexity.
 
-#include "../bibliography.typ"
+#include "../reference.typ"

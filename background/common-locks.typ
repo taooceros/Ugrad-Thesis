@@ -12,4 +12,4 @@
 
 === MCS & K42 variant <head:mcs-lock>
 
-#include "../bibliography.typ"
+#include "../reference.typ"

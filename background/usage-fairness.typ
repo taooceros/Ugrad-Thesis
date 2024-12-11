@@ -10,6 +10,9 @@
 
 === Scheduler-Cooperative Locks
 
+== Banning <ban_intro>
+
+
 ==== u-SCL
 
 ==== k-SCL
@@ -19,3 +22,6 @@
 === CFL
 
 @cfl_ref
+
+
+#include "../reference.typ"

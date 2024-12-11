@@ -96,4 +96,4 @@ Most delegation styled lock adopts either eventual acquisition fairness (@flatco
 
 #pagebreak(weak: true)
 
-#include "bibliography.typ"
+#include "reference.typ"
