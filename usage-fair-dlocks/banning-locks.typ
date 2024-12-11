@@ -106,7 +106,7 @@ We implement the first solution in this thesis for simplicity. It may incur a ti
 
 === CCSynch with Banning <head:ccsynch-banning>
 
-The implementation of #cc-synch with banning is slightly more complex than #fc-banning, because in #cc-synch, the nodes are cycled and utilized by different threads each time to ensure the FIFO order of the execution. Therefore, threads must maintain additional thread-local data to record the banned time.
+The implementation of #cc-synch with banning is slightly more complex than #fc-banning, because in #cc-synch, the nodes are cycled and utilized by different threads each time to ensure the FIFO order of the execution @ccsynch_ref. Therefore, threads must maintain additional thread-local data to record the banned time.
 
 Compared to #fc-banning, #cc-synch-banning assigns the threads that trying to acquire the lock to spin (or wait) until its own banned time is passed for simplicity. This is slightly more performant compared to #fc-banning: the combiner in #fc-banning needs to perform additional checking toward whether a thread is banned.
 
@@ -151,7 +151,97 @@ Compared to #fc-banning, #cc-synch-banning assigns the threads that trying to ac
 ]<code:ccsynch-banning-lock>
 
 
-@ccsynch_ref
+@code:ccsynch-banning-lock-local-wait is the pseudo rust code of the local banning of #cc-synch-banning. At @code:ccsynch-banning-lock-local-wait:10, the thread checks whether it is banned. If it is banned, it will perform exponential backoff until the banned time is passed (theoretically one could use sleeping mechanism from the OS to reduce spinning).
+
+#figure(caption: [Banning of #cc-synch-banning])[
+  ```rust
+  fn lock(&self, data: I) -> I {
+    ... // load thread data
+
+    let banned_until = thread_data.banned_until.get().read();
+
+    let backoff = Backoff::default();
+    loop {
+        let current = __rdtscp(&mut aux);
+
+        if current >= banned_until {
+            break;
+        }
+        backoff.snooze(); // expontential backoff
+    }
+
+    ... // Normal ccsynch logic
+
+    // if your node is completed, ban yourself and return
+    // otherwise, you are the combiner
+    if current_node.completed {
+        self.ban(thread_data, current_node.panelty);
+        return current_node.data;
+    }
+  } 
+  ``` 
+]<code:ccsynch-banning-lock-local-wait>
+
+
+#figure(caption: [Banning of #cc-synch-banning])[
+  ```rust
+  fn ban(&self, data: &ThreadData<I>, panelty: u64) {
+      data.banned_until += panelty;
+  }
+  ```
+]<code:ccsynch-banning-lock-ban>
+
+@code:ccsynch-banning-combine is the pseudo rust code of the combine portion of #cc-synch-banning. @code:ccsynch-banning-combine:12 calculates the length of the critical section and then updates the penalty of the node, and @code:ccsynch-banning-combine:13 pass the panelty to current node, which will be readed by the waiter and stored in the thread-local data. @code:ccsynch-banning-combine:14 will carry a write fence (Release ordering) to ensure that waiter can see the updated panelty.
+
+
+#figure(caption: [Combine portion of #cc-synch-banning])[
+  ```rust
+  let mut work_begin = __rdtscp(&mut aux);
+  while let Some(next_node) = next_ptr {
+      if counter >= H {
+          break;
+      }
+      counter += 1;
+      tmp_node.data = (self.delegate)(
+          self.data.get().as_mut().unwrap_unchecked(),
+          tmp_node.data.get(),
+      );
+      let work_end = __rdtscp(&mut aux);
+      let cs = work_end - work_begin;
+      tmp_node.panelty = cs * self.num_waiting_threads;
+      tmp_node.completed = true;
+      tmp_node.wait = false;
+
+      work_begin = work_end;
+      tmp_node = next_node;
+      next_ptr = NonNull::new(tmp_node.next);
+  }
+
+  // ban yourself and return
+  self.ban(thread_data, current_node.panelty);
+
+  return current_node.data;
+  ```
+]<code:ccsynch-banning-combine>
+
+=== Alternative Banning Strategy
+
+The banning strategy inherited from #scls is simple and effective. It has an interesting property that it only consider the total usage of the lock. Thus, if a thread has slept for a long time and then wakes up and acquire the lock for a very long time, it won't be banned.
+
+We can propose an alternative banning strategy that doesn't consider the previous behavior, but using a moving average of the average critical section to calculate the banning time.
+
+The banning time is calculated as below:
+
+$ t_"banned until" = t_"last unlock" + max(0, "cs" times n_"thread" - "cs"_"avg") $
+
+where the moving average of the critical section is calculated as below:
+
+$ "cs"_"avg" <- "cs"_"avg" + ("cs"-"cs"_"avg") / (n_"exec") $
+
+The rationale behind maintaining an additional average critical section
+usage is to address situations where only a few threads share similar
+critical section lengths. This approach helps minimize the duration during
+which all threads are banned.
 
 
 #include "../reference.typ"
