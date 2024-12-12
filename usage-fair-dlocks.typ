@@ -1,5 +1,9 @@
 #import "utils.typ": *
 
+#import "@preview/codly:1.1.1": *
+#import "@preview/codly-languages:0.1.3": *
+#show: codly-init.with()
+
 = Usage Fair Delegation Styled Locks
 
 This chapter will introduce different designs of delegation styled locks that adepts the concept of usage fairness. We start with the banning strategy,

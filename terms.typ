@@ -10,3 +10,5 @@
 #let cfl = smallcaps[CFL]
 #let rcl = smallcaps[RCL]
 #let ffwd = smallcaps[ffwd]
+
+#let fc-sl = smallcaps[FC-Skiplist]

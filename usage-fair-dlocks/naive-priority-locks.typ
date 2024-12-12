@@ -1,6 +1,5 @@
 #import "../utils.typ": *
 
-
 == Naive Priority Locks
 
 There are two main problems with the banning strategy:
@@ -23,16 +22,68 @@ The design of this chapter encompases the following components:
 + A policy to elect a combiner.
 + A concurrent scheduler allows scheduling the next critical section.
 
-=== FC-Skiplist
+=== #fc-sl
 
-This section we introduces a prototype that adopts the above design.
+This section we introduces a prototype that adopts the above design. The idea is to use a concurrent priority queue to schedule the next critical section. Each thread push their job into the priority queue with value being their lock usage, in which the combiner will pop the smallest value from the priority queue to schedule the next critical section. We prototype this design with a concurrent skiplist, which is a quiscently consistent concurrent priority queue @skiplist_ref.
 
-We starts with a combiner election policy that is similar to how #fc works @flatcombining_ref. The combiner election policy of #fc is pretty simple: using an `AtomicBool` to achieve consensus about the current combiner.
+We starts with a combiner election policy that is similar to how #fc works @flatcombining_ref. The combiner election policy of #fc is pretty simple: using an normal lock to achieve consensus about the current combiner.
 
-Whenever threads are trying to acquire the lock, they will check the `AtomicBool` is set. If it is set, then it knows that there is a current combiner which may be able to execute its critical section. If not, it will perform a `CAS` operation to set the `AtomicBool` to achieve consensus about whether there is a current combiner.
+Whenever threads are trying to acquire the lock, you will check the global lock is acquired. If it is acquired, then it knows that there is a current combiner which may be able to execute its critical section. If not, it will perform a `CAS` operation to set the `AtomicBool` to achieve consensus about whether there is a current combiner. This policy is identical to the combiner election policy of #fc @flatcombining_ref.
+
+@code:fc-sl-lock demonstrate the lock function of #fc-sl. The structure of the lock is very similar to the lock function of #fc. The steps are as follows:
+
++ Write the critical section that needs to be applied sequentially to the shared object in the `data` field of your thread local publication record. The `complete` is set to `false` to indicate that there is a new critical section to be applied.
++ Push your thread local publication record into the skiplist.
++ Check if the global lock is acquired. If so (there is a current active combiner), spin/wait on the `complete` field of your thread-local publication record.
++ If the lock is not acquired, try to acquire it (via `CAS` or any other atomic operations), and if successful, become a combiner. If failed, then someone else already become the combiner, you will return to Step 3.
++ Otherwise, you hold the lock and become the current combiner. Execute `combine` and then unlock the lock.
+
+Difference compared to #fc: Because we are using a concurrent priority queue, we no longer cache the node after first usage. This means that whenever a thread is trying to execute its critical section, it will have to re-insert the node into the skiplist. This is more similar to #cc-synch.
+
+Differences compared to #cc-synch: #cc-synch utilzies a more stable mechanism to elect the next combiner by electing the start of the FIFO queue or the current executed node. Due to the complexity of a concurrent skiplist and the re-ordering nature, this is much harder to implement. However, we will discuss a possible improvement of combiner election in the next section.
+
+=== Potential Improvements <head:fc-sl-improvements>
+
+The current 
+
+Although Skiplist offers a lock-free implementation of a priority queue, it incurs quite a few overheads due to the re-ordering. Skiplist is too general (sorting via a comparator), and suffers from high contention. Alternative solution likes Congee, which although is not lock-free, may be more efficient given that we are solely sorting via the integer value @congee_ref.
 
 
-@skiplist_ref
+#figure(caption: "lock function of FC-Skiplist")[
+    ```rust
+    fn lock(&self, data: I) -> I {
+        let node = self.local_node.get_or(|| SyncUnsafeCell::new(Node::new()));
+        node.data = data.into();
+        node.complete = false;
+        'outer: loop {
+            self.push(node);
+            if self.combiner_lock.try_lock() {
+                unsafe {
+                    self.combine();
+                    self.combiner_lock.unlock();
+                }
+                if node.complete {
+                    break 'outer;
+                }
+            } else {
+                let backoff = Backoff::new();
+                loop {
+                    if node.complete {
+                        break 'outer;
+                    }
+                    backoff.snooze();
+                    if backoff.is_completed() {
+                        continue 'outer;
+                    }
+                }
+            }
+        }
+
+        unsafe { ptr::read(node.data.get()) }
+    }
+    ```
+]<code:fc-sl-lock>
+
 
 
 #include "../reference.typ"
