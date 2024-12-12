@@ -27,9 +27,8 @@ jobs:
         id: date
         run: echo "DATE=$(date +%Y-%m-%d-%H:%M)" >> $GITHUB_ENV
 
-      - name: Release
-        uses: pyTooling/Actions/releaser@main
+      - name: Update release
+        uses: johnwbyrd/update-release@v1
         with:
-          tag: draft
-          rm: true
+          token: ${{ secrets.GITHUB_TOKEN }}
           files: thesis.pdf
