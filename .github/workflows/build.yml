@@ -32,4 +32,4 @@ jobs:
         with:
           tag_name: draft
           files: thesis.pdf
-          name: "${{ Draft: env.DATE }}"
+          name: "Draft - ${{ env.DATE }}"
