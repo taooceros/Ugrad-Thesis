@@ -28,9 +28,9 @@ jobs:
         run: echo "DATE=$(date +%Y-%m-%d-%H:%M)" >> $GITHUB_ENV
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: eine/tip@master
         with:
-          tag: nightly
+          tag: draft
           rm: true
           name: "${{ github.ref_name }} — ${{ env.DATE }}"
           files: thesis.pdf
