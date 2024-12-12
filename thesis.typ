@@ -1,4 +1,3 @@
-#import "frontpage.typ": *
 #import "template.typ": *
 
 #codly(languages: (
