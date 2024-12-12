@@ -28,7 +28,7 @@
         [#numbering(it.numbering, ..counter(heading).get()) #it.body]
     }
 
-    set par(leading: 1em, justify: true)
+    set par(leading: 1em, first-line-indent: 1em, justify: true)
     
     show outline: set par(leading: 1.5em)
 
