@@ -1,4 +1,4 @@
-#import "utility.typ" : *
+#import "utils.typ" : *
 
 = Introduction
 

@@ -1,4 +1,4 @@
-#import "../utility.typ": *
+#import "../utils.typ": *
 #import "@preview/codly:1.1.1": *
 #import "@preview/codly-languages:0.1.3": *
 
@@ -112,7 +112,7 @@ Compared to #fc-banning, #cc-synch-banning assigns the threads that trying to ac
 
 @code:ccsynch-banning-node demonstrates the thread local structure and the node structure of #cc-synch-banning. At @code:ccsynch-banning-node:3 we see the additional thread-local data used to detect whether the thread is banned.
 
-#figure(caption: [Node structure of #cc-synch-banning], supplement: [Code Block])[
+#figure(caption: [Node structure of #cc-synch-banning])[
   ```rust
   pub struct ThreadData<T> {
       pub(crate) node: AtomicPtr<Node<T>>,

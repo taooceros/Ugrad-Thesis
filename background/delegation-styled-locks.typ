@@ -1,4 +1,4 @@
-#import "../utility.typ": *
+#import "../utils.typ": *
 
 
 == Delegation Styled Locks <head:delegation-styled-locks>

@@ -8,5 +8,6 @@
 
 #outline(target: figure.where(kind: table), title: "Lists of Tables")
 
+#outline(target: figure.where(kind: raw), title: "Lists of Code Blocks")
 
 #pagebreak(weak: true)
