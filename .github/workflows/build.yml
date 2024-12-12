@@ -30,5 +30,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
+          tag: nightly
+          rm: true
           name: "${{ github.ref_name }} — ${{ env.DATE }}"
           files: thesis.pdf
