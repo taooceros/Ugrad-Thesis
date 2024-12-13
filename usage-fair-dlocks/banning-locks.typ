@@ -31,7 +31,7 @@ We implement the first solution in this thesis for simplicity. It may incur a ti
 
 
 
-#figure(caption: [Node structure of #fc-banning])[
+#figure(caption: [Node structure of #fc-banning], placement: auto)[
   ```rust
     pub struct Node<T> {
         pub age: UnsafeCell<u32>,
@@ -66,6 +66,8 @@ We implement the first solution in this thesis for simplicity. It may incur a ti
   }
   ```
 ]<code:fc-banning-lock>
+
+#linebreak()
 
 @code:fc-banning-combine is a pseudo rust code #footnote[
   omitting some rust details of unsafe and atomic operations: access the `UnsafeCell` and atomic load/store operations.

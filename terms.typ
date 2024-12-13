@@ -12,3 +12,4 @@
 #let ffwd = smallcaps[ffwd]
 
 #let fc-sl = smallcaps[FC-Skiplist]
+#let fc-channel = smallcaps[FC-Channel]

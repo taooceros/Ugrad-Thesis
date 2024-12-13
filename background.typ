@@ -8,7 +8,7 @@
   include "background/common-locks.typ",
   include "background/usage-fairness.typ",
   include "background/delegation-styled-locks.typ",
-  include "background/lock-free-data-structures.typ",
+  include "background/common-concurrent-data-structures.typ",
 )
 
 

@@ -3,7 +3,7 @@
 #import "@preview/codly-languages:0.1.3": *
 
 #let front-page(title, authors, college, degree-program, date) = {
-  set text(font: "Times New Roman", size: 12pt)
+  set text(size: 12pt)
   set page(margin: 1in)
   v(4em)
   align(center, {
@@ -82,11 +82,11 @@
         v(1em)
     }
 
-    show heading.where(level: 2): it => {
-        v(0.5em)
-        
-        [#numbering(it.numbering, ..counter(heading).get()) #it.body]
-    }
+    show heading.where(level: 2): set block(above: 3em, below: 1em)
+    show heading.where(level: 3): set block(above: 2em, below: 1em)
+    show heading.where(level: 4): set block(above: 2em, below: 1em)
+    show heading.where(level: 5): set block(above: 2em, below: 1em)
+
 
     set par(leading: 1em, first-line-indent: 1em, justify: true)
     
