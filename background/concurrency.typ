@@ -1,4 +1,4 @@
-= Concurrency, Synchronization & Mutual Exclusion <head:concurrency>
+== Concurrency, Synchronization & Mutual Exclusion <head:concurrency>
 
 In modern computing systems, concurrency is fundamental to achieving high performance and resource utilization. Concurrent programming allows multiple computations to progress simultaneously, whether through true parallelism on multiple processors or through interleaved execution on a single processor. However, concurrent execution introduces challenges when multiple threads or processes need to access shared resources.
 
