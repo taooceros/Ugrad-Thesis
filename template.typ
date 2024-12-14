@@ -75,12 +75,11 @@
 
     pagebreak(weak: true)
 
-    show heading.where(level: 1): it => {
-        v(5em)
-        set align(right)
+    show heading.where(level: 1): it => block(below: 2em, {
+        v(4em)
+        h(1fr)
         it.body
-        v(1em)
-    }
+    })
 
     show heading.where(level: 2): set block(above: 3em, below: 1em)
     show heading.where(level: 3): set block(above: 2em, below: 1em)
