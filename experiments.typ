@@ -50,6 +50,28 @@ Overall, we see that all of our delegation-styled locks outperform other locks t
 
 One of the focus of this thesis is to improve the fairness of the locks while preserving the performance through delegation strategy. We evaluate the fairness of the locks by measuring the variance of the execution time of each thread.
 
+#figure(caption: "Fairness with 0 and 1000 non-critical section iterations")[
+  #image("images/fairness-line-1000-3000-0-1000.svg")
+]<figure:fairness-line-1000-3000-0-1000>
+
+#figure(caption: "Fairness with 10000 non-critical section iterations")[
+  #image("images/fairness-box-1000-3000-0-1000.svg")
+]<figure:fairness-box-1000-3000-0-1000>
+
+@figure:fairness-line-1000-3000-0-1000 and @figure:fairness-box-1000-3000-0-1000 demonstrates the fairness of the locks with 16 threads contending. Left plot shows the fairness of the locks with 0 iterations of non-critical section. Right plot shows the fairness of the locks with 1000 iterations of non-critical section.
+
+
+We can see that most delegation styled lock has demonstrated (amortized) acquisition fairness. The throughput comparison of threads are proportional to the critical section. On the other hand, #mutex and #spinlock has demosntrated the potential to starve thread, which is expected. As noted in previous work, the disproportional workload will be amplified with non-fair lock @scheduler_coop_locks_ref.
+
+The fair variant of delegation styled locks based on banning strategy have demonstrate the fairness guarantee comparable to _U-SCL_, while maintaining high performance. On the other hand, the current implmentation fails to provide fairness guarantee if only two threads are contending for the lock, while `U-SCL` is able to both perform well and provide fairness. The reason is not so clear yet, but potential reason include:
+
+1. Combiner are unable to insert their work to the job queue when it is combining, which might yield additional unfairness if the thread with smaller critical section becomes the combiner.
+2. The current banning algorithm different than the one use in `U-SCL`, which bans every thread even though they hasn't entered the critical section for a while. This is probably not a good practice and should be fixed.
+
+Other fair variant of delegation styled locks, such as `FC_PQ_BTree`/`FC_PQ_BHeap` and `FC_SL` also demonstrate significant unfairness when only two threads are competing. The major reason for these unfainess is likely to attribute to the small contention, which makes it hard for the coordinator to reorder the job sequence.
+
+Both of these priority queue based fair variant are using simple heuristic similar to `CFS` by counting the usage of each thread toward the lock and reorder jobs. When the thread number is low, it is unlikely that the waiter can insert its second job before the combiner decides to switch to job from another threads, which yield to the unfairness.
+
 
 == Latency <head:experiment-latency>
 

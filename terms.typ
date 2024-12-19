@@ -16,3 +16,6 @@
 #let fc-pq-binary-heap = smallcaps[FC-PQ-BHeap]
 #let fc-pq-b-tree = smallcaps[FC-PQ-BTree]
 
+#let mutex = smallcaps[Mutex]
+#let spinlock = smallcaps[SpinLock]
+
