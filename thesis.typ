@@ -1,9 +1,5 @@
 #import "template.typ": *
 
-#codly(languages: (
-  rust: (name: "Rust", icon: "🦀", color: rgb("#CE412B")),
-))
-
 #front-page([
     Usage Fair Delegation Styled Lock
 ], ("Hongtao Zhang",), "College", "Degree Program", [Fall 2024])
@@ -35,3 +31,5 @@
 #include "experiments.typ"
 
 #include "future-work.typ"
+
+#include "appendix.typ"

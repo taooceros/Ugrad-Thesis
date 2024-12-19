@@ -1,4 +1,7 @@
-#import "../utils.typ": *
+#import "../template.typ": *
+
+#show: thesis-body
+
 
 == Naive Priority Locks
 
@@ -34,8 +37,8 @@ Whenever threads are trying to acquire the lock, you will check the global lock 
 
 + Write the critical section that needs to be applied sequentially to the shared object in the `data` field of your thread local publication record. The `complete` is set to `false` to indicate that there is a new critical section to be applied.
 + Push your thread local publication record into the skiplist.
-+ Check if the global lock is acquired. If so (there is a current active combiner), spin/wait on the `complete` field of your thread-local publication record.
-+ If the lock is not acquired, try to acquire it (via `CAS` or any other atomic operations), and if successful, become a combiner. If failed, then someone else already become the combiner, you will return to Step 3.
++ Check if the global lock is acquired. If so (there is a current active combiner), spin/wait on the `complete` field of your thread-local publication record. If not, proceed to Step 4. Once in a while, repeat Step 3.
++ Try to acquire it (via `CAS` or any other atomic operations), and if successful, become a combiner. If failed, then someone else already become the combiner, you will return to Step 3.
 + Otherwise, you hold the lock and become the current combiner. Execute `combine` and then unlock the lock.
 
 
@@ -74,10 +77,13 @@ Whenever threads are trying to acquire the lock, you will check the global lock 
     ```
 ]<code:fc-sl-lock>
 
+==== Difference compared to #fc: 
 
-Difference compared to #fc: Because we are using a concurrent priority queue, we no longer cache the node after first usage. This means that whenever a thread is trying to execute its critical section, it will have to re-insert the node into the skiplist. This is more similar to #cc-synch.
+- Because we are using a concurrent priority queue, we no longer cache the node after first usage. Therefore, at Step 2 we don't have to check whether our local node is active or not (it will be active after the thread push it into the concurrent priority queue, or inactive when the job is completed).
 
-Differences compared to #cc-synch: #cc-synch utilzies a more stable mechanism to elect the next combiner by electing the start of the FIFO queue or the current executed node. Due to the complexity of a concurrent skiplist and the re-ordering nature, this is much harder to implement. However, we will discuss a possible improvement of combiner election in the next section.
+==== Differences compared to #cc-synch:
+
+- #cc-synch utilzies a more stable mechanism to elect the next combiner by electing the start of the FIFO queue or the current executed node. Due to the complexity of a concurrent skiplist and the re-ordering nature, this is much harder to implement. However, we will discuss a possible improvement of combiner election in the next section.
 
 
 

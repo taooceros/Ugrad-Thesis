@@ -70,7 +70,7 @@ We implement the first solution in this thesis for simplicity. It may incur a ti
 #linebreak()
 
 @code:fc-banning-combine is a pseudo rust code #footnote[
-  omitting some rust details of unsafe and atomic operations: access the `UnsafeCell` and atomic load/store operations.
+  omitting some rust details of unsafe and atomic operations: access the `UnsafeCell` and atomic load/store operations (if not specified, the memory ordering is `Acquire/Release`).
 ] of the combining function of #fc with banning. We can see that the combiner is executing the critical section of the thread only if the thread is not banned (@code:fc-banning-combine:11). Start at @code:fc-banning-combine:11, the combiner uses the current timestamp to calculate the lock usage and then update the banned time of the thread.
 
 

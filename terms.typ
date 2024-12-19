@@ -13,3 +13,6 @@
 
 #let fc-sl = smallcaps[FC-Skiplist]
 #let fc-channel = smallcaps[FC-Channel]
+#let fc-pq-binary-heap = smallcaps[FC-PQ-BHeap]
+#let fc-pq-b-tree = smallcaps[FC-PQ-BTree]
+
