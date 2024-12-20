@@ -75,6 +75,33 @@ Both of these priority queue based fair variant are using simple heuristic simil
 
 == Latency <head:experiment-latency>
 
+In this section, we will present the latency of the locks. We will measure the latency of the locks by measuring the time it takes for a thread to acquire the lock and execute the critical section. Now the thread will only execute a very short critical section (1 iteration) and then release the lock.
+
+#figure(caption: "Latency of 16 threads contending for the lock")[
+  #image("images/latency-single-addition-all.svg")
+]<figure:latency-all>
+
+@figure:latency-all demonstrates the latency of the locks with 16 threads contending for the lock. The thread will only execute a very short critical section (1 iteration) and then release the lock. In each of the plot, we have more than 10M data points (except for #fc-sl).
+
+We can see that the latency of #fc-sl, although it is supposed to be the fairest, has the largest tail latency.
+
+#figure(caption: "Latency of 16 threads (5% - 95% percentile)")[ 
+  #image("images/latency-central-no-fc-sl.svg")
+]<figure:latency-central-no-fc-sl>
+
+@figure:latency-central-no-fc-sl demonstrates the latency truncating some of the tail latency and ignore #fc-sl. We can see that #fc-channel demonstrates relatively worse performance, probably due to the additional re-ordering from the combiner as the critical section is small. Other delegation styled locks demonstrates similar latency results.
+
+== Future Work <head:latency-future-work>
+
+There are several important measurement that we should be doing to fully understand the behavior of the locks.
+
+1. A larger critical section size should be characterized.
+2. Variable size of critical section should be characterized (and the correlation between critical section size and the latency distribution).
+3. Variable size of non-critical section should be characterized (and the correlation between non-critical section size and the latency distribution).
+4. The comparison between combiner and non-combiner should be characterized.
+
+Further, we should integrate with the analysis for a scheduler, as a fair lock should advocate similar behavior as a scheduler.
+
 #include "reference.typ"
 
 #pagebreak(weak: true)
