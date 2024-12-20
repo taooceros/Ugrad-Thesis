@@ -1,6 +1,6 @@
 #import "utils.typ": *
 
-= Background
+= Background <head:background>
 
 #let modules = (
   include "background/concurrency.typ",

@@ -1,6 +1,8 @@
 #import "template.typ": *
 
-= Charateristics & Experiments
+#show: thesis-body
+
+= Charateristics & Experiments <head:experiment>
 
 In this section, we will present the characteristics of the locks and the experiments results. Specifically, we focus on three aspects: Throughput (@head:experiment-throughput), Fairness (@head:experiment-fairness), and Latency (@head:experiment-latency).
 
@@ -91,7 +93,7 @@ We can see that the latency of #fc-sl, although it is supposed to be the fairest
 
 @figure:latency-central-no-fc-sl demonstrates the latency truncating some of the tail latency and ignore #fc-sl. We can see that #fc-channel demonstrates relatively worse performance, probably due to the additional re-ordering from the combiner as the critical section is small. Other delegation styled locks demonstrates similar latency results.
 
-== Future Work <head:latency-future-work>
+=== Future Work <head:latency-future-work>
 
 There are several important measurement that we should be doing to fully understand the behavior of the locks.
 
@@ -101,6 +103,16 @@ There are several important measurement that we should be doing to fully underst
 4. The comparison between combiner and non-combiner should be characterized.
 
 Further, we should integrate with the analysis for a scheduler, as a fair lock should advocate similar behavior as a scheduler.
+
+== Additional Experiments for Future <head:future-work-additional>
+
+For a more comprehensive analysis, additional experiments that domonstrate end to end performance of the locks should be conducted.
+
+- A linked list implemented with different locks.
+- A hash table implemented with different locks.
+- A Stack/Queue implemented with different locks.
+- Comparison with State of Art concurrent data structures.
+
 
 #include "reference.typ"
 

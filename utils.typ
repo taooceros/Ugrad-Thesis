@@ -1,5 +1,15 @@
-#let not-sure = text(red, "Not Sure whether to include this")
+#let show-todo = false
 
-#let todo(body) = text(yellow.darken(20%), [TODO: #body], weight: "bold")
+#let not-sure = if show-todo {
+    text(red, "Not Sure whether to include this")
+} else {
+    ""
+}
+
+#let todo(body) = if show-todo {
+    text(yellow.darken(20%), [TODO: #body], weight: "bold")
+} else {
+    ""
+}
 
 #import "terms.typ": *

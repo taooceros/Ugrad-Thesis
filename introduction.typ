@@ -62,7 +62,7 @@ Foundamentally, fair lock means that the lock owner will be switching very frequ
 
 In most scenario, a lock is protecting some shared memory location which requires atomic access. In general, memory can be read concurrently by multiple threads without problem. What a lock is trying to prevent is concurrent write. Whenever a thread is write to a shared memory location protected by a lock, it will carry over a memory barrier that invalidate all other cpus' cache toward the memory location. In a single threaded program, this will not incur performance penalty, because its own cache is still valid. However, in a fair lock scenario, whenever new thread is acquiring the lock (assuming the new thread does not lie in the same physical cpu as the previous thread), it will see that the cache toward the memory of the shared resource is invalidated. This forces the new cpu to re-acquire the shared memory location through at least _L3_ cache or even the underlying memory, which is significantly slower than _L1_ and _L2_ cache. What's worse is this will happen for every single acquire and release of the lock, because the lock is trying to previde fairness and switch frequenctly among threads.
 
-Due to this problem, most modern high performance locks only adopts what's called _eventually_ fairness (which is what _SCL_ with lock slice is trying to adopt) @scheduler_coop_locks_ref #todo[some other reference]. These locks don't try to switch the lock owner for every single acquire-release, but ensure that asymtotically (or in the long term) the acquisition/usage-fairness will be achieved. However, this means that threads may suffer from large tail latency because of the unfairness.
+Due to this problem, most modern high performance locks only adopts what's called _eventually_ fairness (which is what _SCL_ with lock slice is trying to adopt) @scheduler_coop_locks_ref#todo[some other reference]. These locks don't try to switch the lock owner for every single acquire-release, but ensure that asymtotically (or in the long term) the acquisition/usage-fairness will be achieved. However, this means that threads may suffer from large tail latency because of the unfairness.
 
 This problem raises to a question: can we have a lock that maintains fairness in its best effort in short term while preserving performance?
 
@@ -91,7 +91,7 @@ Most delegation styled lock adopts either eventual acquisition fairness (@flatco
 
 == Overview
 
-#todo[]
+In this thesis, we will briefly introduce the background knowledge of delegation styled lock (@head:background), and then we will discuss the various method we can utilize to achieve usage fairness under the setting of delegation styled lock (banning @head:banning-locks, concurrent priority queue @head:naive-priority-locks, and channel @head:serialized-scheduling-locks). Then we will go through some characterization and evaluation of the proposed lock @head:experiment. After that, we will discuss a potential proposal to not only achieve usage fairness, but also to redesign the scheduler to cooperate with the lock @head:future-work.
 
 
 #pagebreak(weak: true)

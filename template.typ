@@ -62,6 +62,7 @@
 #let preview = false
 
 #let thesis-body(content) = {
+  set heading(numbering: "1.1")
   show ref: it => {
     if preview {
       if query(it.target) != () {

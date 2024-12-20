@@ -2,7 +2,7 @@
 #show: thesis-body
 
 
-== Serialized Scheduling Locks
+== Serialized Scheduling Locks <head:serialized-scheduling-locks>
 
 In general, concurrent priority queue is expensive. However, if we rethink about the problem, we doesn't really need a concurrent priority queue. The thread usage is solely controlled by the combiner, which is protected by a lock (or similar mechanisms). Therefore, as long as we can ensure that the combiner knows all the thread that is waiting, we can deligate the combiner to reorder the jobs. We call this #fc-channel.
 
@@ -258,3 +258,5 @@ Currently, the implementation adopts a simple scheduling policy: usage-based pri
 === Future Work
 
 There are several future works that can be done. The current implementation only realizes a exponential buffering mechanism where $"Max Depth"=1$. A future work is to implement the full version. On the other hand, the design of #fc-channel is moduler, which means we can switch the channel implementation and the scheduling policy easily. Thus, a potential future work is to try out other implementation of the channel and scheduling policy.
+
+

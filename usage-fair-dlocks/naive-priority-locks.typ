@@ -3,7 +3,7 @@
 #show: thesis-body
 
 
-== Naive Priority Locks
+== Naive Priority Locks <head:naive-priority-locks>
 
 There are two main problems with the banning strategy:
 

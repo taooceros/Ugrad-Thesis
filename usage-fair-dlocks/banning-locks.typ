@@ -4,7 +4,7 @@
 #import "@preview/codly-languages:0.1.3": *
 #show: codly-init.with()
 
-== Banning Locks
+== Banning Locks <head:banning-locks>
 
 We start by migrating the banning strategy of #scls to the delegation styled locks. As mentioned in (@), #scls adopts the following banning strategy:
 
