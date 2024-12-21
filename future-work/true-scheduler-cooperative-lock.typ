@@ -1,6 +1,6 @@
 == Transparent Delegation Styled Locks
 
-One of the foundamental issue of delegation styled locks is that it offers a different set of API compared to the traditional locks. Despite the fact that delegation styled lock may offer various performance benefits, it is just hard to port existing code to use delegation styled lock. What's worse, it generally requires people to re-design the access pattern of the data structure, which is not trivial.
+One of the fundamental issues with delegation styled locks is that it offers a different set of API compared to the traditional locks. Despite the fact that delegation styled lock may offer various performance benefits, it is hard to port existing code to use delegation styled lock. What's worse, it generally requires developers to re-design the access pattern of the data structure, which is not trivial.
 
 TCLocks showed that it is possible to design a transparent delegation styled lock that offers the same set of API as the traditional locks @tclocks_ref. The idea is clean and simple: a stack of a thread, combined with all the register, should capture all the execution frame of the specific thread. In such, besides some subtle problems (e.g. interrupt), we should be able to store the execution frame of a thread with a traditional lock API. This allows people to use delegation styled lock without changing the code massively.
 

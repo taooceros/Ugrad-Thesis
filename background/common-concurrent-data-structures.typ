@@ -1,16 +1,16 @@
 == Common Concurrent Data Structures <head:common-concurrent-data-structures>
 
-=== Linked List <head:lock-free-linked-list>
+// === Linked List <head:lock-free-linked-list>
 
-@aomp_ref
+// @aomp_ref
 
-=== Skip-List <head:lock-free-skip-list>
+// === Skip-List <head:lock-free-skip-list>
 
-@aomp_ref @skiplist_ref
+// @aomp_ref @skiplist_ref
 
-=== Priority Queue <head:lock-free-priority-queue>
+// === Priority Queue <head:lock-free-priority-queue>
 
-@aomp_ref
+// @aomp_ref
 
 === Channel <head:channel>
 
@@ -19,7 +19,7 @@ Channel is a fundamental concurrent primitive that enables safe communication be
 Modern programming languages like Go and Rust have made channels a central part of their concurrency models. Channels can be either bounded (with a fixed capacity) or unbounded, and they can be synchronous (where sends block until there's a receiver) or asynchronous (where sends can proceed if there's buffer space available). This flexibility makes channels particularly useful for implementing various concurrent patterns, including producer-consumer relationships, fan-out/fan-in workflows, and job distribution systems.
 
 
-@ringbuffer_ref
+One of the most common implementation of channel is ring buffer, which is a circular buffer that allows for efficient data transfer between threads @ringbuffer_ref. 
 
 #pagebreak(weak: true)
 

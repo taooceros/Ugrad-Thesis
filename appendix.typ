@@ -2,6 +2,8 @@
 
 #show: thesis-body
 
+= Appendix
+
 #let data = (
   4718000,
   83547000,
