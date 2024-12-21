@@ -104,7 +104,7 @@
 
   set text(size: 12pt)
 
-  show heading.where(level: 1): set text(font: "Source Sans 3", size: 25pt, weight: "medium")
+  show heading.where(level: 1): set text(font: ("Source Sans Pro", "Source Sans 3"), size: 25pt, weight: "medium")
   show heading.where(level: 2): set text(size: 18pt)
 
   set page(
