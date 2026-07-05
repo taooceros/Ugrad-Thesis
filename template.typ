@@ -1,6 +1,6 @@
 #import "utils.typ": *
-#import "@preview/codly:1.1.1": *
-#import "@preview/codly-languages:0.1.3": *
+#import "@preview/codly:1.3.0": *
+#import "@preview/codly-languages:0.1.10": *
 #import "@preview/showybox:2.0.3": showybox
 
 #let front-page(title, authors, college, degree-program, date) = {
